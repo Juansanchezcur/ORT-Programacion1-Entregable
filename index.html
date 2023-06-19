@@ -35,10 +35,10 @@
                 <li id="btnSeccionBuscadorDeCensosInvitado" class="btnSeccion invitado">
                     <a>Ingreso de datos</a>
                 </li>
-                <li id="btnEliminacionInvitado" class="btnSeccion invitado">
+                <li id="btnSeccionEliminarCensoInvitado" class="btnSeccion invitado">
                     <a>Eliminación de datos</a>
                 </li>
-                <li id="btnSeccionListadoCensadosInvitado" class="btnSeccion invitado">
+                <li id="btnSeccionEstadisticaInvitado" class="btnSeccion invitado">
                     <a>Listado de censados.</a>
                 </li>
 
@@ -225,7 +225,43 @@
 
                 <p id="pMensajeRegistrarCensoInvitado"> </p>
             </div>
+
+            <div id="seccionEliminarCensoInvitado" class="seccion">
+                <h3>Eliminar Censo</h3>
+                <p>Ingrese la Cédula para eliminar el censo vinculado a esta </p>
+                <label for="txtCedulaEliminarCensoInvitado">Cédula:</label>
+                <input type="text" id="txtCedulaEliminarCensoInvitado">
+                <br><br>
+                <input type="button" id="btnBuscarCensoAEliminarInvitado" value="Buscar">
+                <br><br>
+                <p id="pMensajeEliminarCensoInvitado"> </p>
+                <input type="button" id="btnEliminarCensoInvitado" value="Eliminar">
+            </div>
+
+            <div id="seccionEstadisticaInvitado" class="seccion">
+                <h3>Listado de censados</h3>
+
+                <br><br>
+
+                <table border="1" align="center">
+                    <thead>
+                        <tr>
+                            <th>Departamento</th>
+                            <th>Estudian</th>
+                            <th>No trabajan</th>
+                            <th>Dependientes o independientes</th>
+                            <th>Porcentaje total de censados</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblInformeCensadosInvitado"></tbody>
+                </table>
+
+
+
+
+            </div>
         </div>
+    </div>
 
 
 

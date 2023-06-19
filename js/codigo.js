@@ -13,8 +13,12 @@ function inicio() {
   ocultarSecciones();
   ocultarBotones();
   document.querySelector("#navPrincipal").style.display = "none";
+
   //Al cargar la página por primera vez, solo se ve la sección del lobby
   document.querySelector("#seccionLobby").style.display = "block";
+
+  //Deshabilito el botón de eliminar censo
+  document.querySelector("#btnEliminarCensoInvitado").style.display = "none";
 
   //Le damos funcionalidad a los botones del Nav
   let botones = document.querySelectorAll(".btnSeccion");
@@ -78,10 +82,19 @@ function inicio() {
   document
     .querySelector("#btnBuscarCensoInvitado")
     .addEventListener("click", buscarCensoInvitado);
-
+  //Registrar censo
   document
     .querySelector("#btnRegistrarCensoInvitado")
     .addEventListener("click", procesarCensoInvitado);
+
+  //Eliminar censo
+  document
+    .querySelector("#btnBuscarCensoAEliminarInvitado")
+    .addEventListener("click", buscarCensoAEliminar);
+
+  document
+    .querySelector("#btnEliminarCensoInvitado")
+    .addEventListener("click", eliminarCensoInvitado);
 }
 
 // GENERALES
@@ -106,6 +119,7 @@ function mostrarSeccionDesdeNav() {
   let idBtn = this.getAttribute("id");
   let idSeccion = idBtn.charAt(3).toLowerCase() + idBtn.substring(4);
   document.querySelector("#" + idSeccion).style.display = "block";
+  //Según qué botón se apreta, le da funcionalidad
   if (idBtn === "btnSeccionIngresoCenso") {
     formatearSeccionIngresoCenso();
   }
@@ -114,6 +128,9 @@ function mostrarSeccionDesdeNav() {
   }
   if (idBtn === "btnSeccionEstadisticaCensista") {
     cargarInformesCensos();
+  }
+  if (idBtn === "btnSeccionEstadisticaInvitado") {
+    cargarTablaInvitado();
   }
 }
 
@@ -959,4 +976,131 @@ function procesarCensoInvitado() {
   document
     .querySelector("#txtCedulaRegistrarCensoInvitado")
     .removeAttribute("disabled");
+}
+
+let censoAEliminar = null;
+
+function buscarCensoAEliminar() {
+  //Tomo los datos del HTML
+  let cedula = document.querySelector("#txtCedulaEliminarCensoInvitado").value;
+  //Valido la CI
+  let cedulaOk = validarCI(cedula);
+  if (!cedulaOk || cedula === "") {
+    mostrarMensaje(
+      "pMensajeEliminarCensoInvitado",
+      "Por favor ingrese una cédula válida"
+    );
+  } else {
+    //Si no existe un censo con esa CI doy un error
+    let existe = sistema.buscarElementoSiExiste(
+      sistema.censos,
+      "cedula",
+      cedula
+    );
+    if (!existe) {
+      mostrarMensaje(
+        "pMensajeEliminarCensoInvitado",
+        "No existe un censo con esa cédula"
+      );
+    } else {
+      //Recupero el censo
+      let censoRecuperado = sistema.traerElemento(
+        sistema.censos,
+        "cedula",
+        cedula
+      );
+      if (censoRecuperado.censado === true) {
+        //Si el censo ya está confirmado doy un error
+        mostrarMensaje(
+          "pMensajeEliminarCensoInvitado",
+          "No se puede eliminar este censo porque ya fué verificado"
+        );
+      }
+      //Si el censo no está confirmado muestro un mensaje y habilito el botón de eliminar censo
+      else
+        mostrarMensaje(
+          "pMensajeEliminarCensoInvitado",
+          "Los datos de esta persona se pueden eliminar <br> Está seguro que desea eliminarlos?"
+        );
+      censoAEliminar = censoRecuperado;
+      document.querySelector("#btnEliminarCensoInvitado").style.display =
+        "inline-block";
+    }
+  }
+}
+function eliminarCensoInvitado() {
+  //Pido una confirmación para eliminar
+  let confirmacion = confirm("Eliminar datos?");
+  //Si confirma: elimino el censo, muestro un mensaje y reinicio la variable, el input y el botón
+  if (confirmacion) {
+    sistema.eliminarCenso(censoAEliminar.id);
+    mostrarMensaje(
+      "pMensajeEliminarCensoInvitado",
+      `Se han eliminado correctamente los datos de la CI: ${censoAEliminar.cedula}`
+    );
+    document.querySelector("#btnEliminarCensoInvitado").style.display = "none";
+    censoAEliminar = null;
+    document.querySelector("#txtCedulaEliminarCensoInvitado").value = "";
+  }
+}
+
+function cargarTablaInvitado() {
+  //Limpio los datos
+  document.querySelector("#tblInformeCensadosInvitado").innerHTML = "";
+
+  //Obtengo los departamentos del sistema
+  let departamentos = sistema.obtenerArrayDepartamentos();
+
+  //Obtengo la cantidad de censos en total que tenemos
+  let totalCensos = sistema.obtenerArrayCensos().length;
+
+  //Busco todos los datos necesarios por departamento y los muestro en la tabla
+  for (let departamento of departamentos) {
+    //Primero busco las personas de este departamento que estudian
+    let estudian = sistema.buscarElementosPorDobleCondicion(
+      sistema.censos,
+      "departamento",
+      `${departamento.id}`,
+      "ocupacion",
+      "3"
+    ).length;
+
+    //Luego busco las personas de este departamento que no estudian
+
+    let noEstudian = sistema.buscarElementosPorDobleCondicion(
+      sistema.censos,
+      "departamento",
+      `${departamento.id}`,
+      "ocupacion",
+      "4"
+    ).length;
+
+    //La suma de los que estudian y los que no estudian es la cantidad de personas que no trabajan
+    let noTrabajan = estudian + noEstudian;
+
+    //Busco el total de personas censadas de este departamento
+    let totalPorDepartamento = sistema.buscarElementosPorCondicion(
+      sistema.censos,
+      "departamento",
+      `${departamento.id}`
+    ).length;
+
+    //La cantidad de persona que trabajan, son el total de departamento menos las que no trabajan
+    let trabajan = totalPorDepartamento - noTrabajan;
+
+    //Saco el porcentaje de personas censadas por departamento, con respecto al total del país
+    let porcentajeCensadosDelTotal = (
+      (totalPorDepartamento / totalCensos) *
+      100
+    ).toFixed(2);
+
+    //Muestro todos los datos calculados en la tabla
+    document.querySelector("#tblInformeCensadosInvitado").innerHTML += `<tr>
+            <td>${departamento.nombre}</td>
+            <td>${estudian}</td>
+            <td>${noTrabajan}</td>
+            <td>${trabajan}</td>
+            <td>${porcentajeCensadosDelTotal}%</td>
+            </tr> `;
+  }
 }

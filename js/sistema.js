@@ -1,12 +1,41 @@
 class Sistema {
   constructor() {
     this.censistas = [
-      new Censista(35, "Carlos Machado", "cmachado", "1234567"),
-      new Censista(36, "Lionel Messi", "lmessi", "1234567"),
+      new Censista(1, "Carlos Machado", "cmachado", "1234567"),
+      new Censista(2, "Lionel Messi", "lmessi", "1234567"),
+      new Censista(3, "Ema Noir", "enoir", "1234567"),
     ];
     this.censos = [
-      new Censo(1, "Juan Carlos", 45, "46972011", "5", "1", 35, false),
-      new Censo(2, "Anibal Perez", 67, "67344849", "12", "2", 35, true),
+      new Censo(1, "Juan Carlos", 45, "46972011", "5", "1", 1, false),
+      new Censo(2, "Mara Trindade", 2, "67344849", "1", "2", 2, true),
+      new Censo(3, "Horacio Gimenez", 84, "27864100", "14", "1", 3, true),
+      new Censo(4, "Diego Alonso", 23, "37855513", "12", "2", 2, false),
+      new Censo(5, "Matias Rey", 21, "42236318", "15", "2", 1, false),
+      new Censo(6, "Julia Perez", 20, "34277590", "17", "3", 3, true),
+      new Censo(7, "Andrea Costa", 41, "77575690", "1", "4", 1, true),
+      new Censo(8, "Andres Acosta", 39, "71716597", "2", "4", 2, true),
+      new Censo(9, "Sofia Silva", 28, "48333461", "2", "4", 3, true),
+      new Censo(10, "Regina Beder", 37, "45444699", "3", "1", 1, false),
+      new Censo(11, "Olivia Montes", 11, "67891676", "4", "1", 2, false),
+      new Censo(12, "Valentina de Oca", 12, "32206753", "5", "3", 2, false),
+      new Censo(13, "Mateo Rodriguez", 8, "39397797", "19", "2", 3, false),
+      new Censo(14, "Armando Casas", 91, "41346378", "18", "2", 2, false),
+      new Censo(15, "Esteban Quito", 79, "42603296", "5", "1", 1, true),
+      new Censo(16, "Juan Reverdito", 38, "88540361", "1", "3", 1, true),
+      new Censo(17, "Jorge Draxler", 42, "92303046", "14", "2", 3, false),
+      new Censo(18, "Chito Vera", 26, "19488421", "12", "4", 3, false),
+      new Censo(19, "Mario Casas", 86, "14417982", "15", "4", 3, true),
+      new Censo(20, "Elias Andaluz", 23, "3671505", "15", "4", 1, false),
+      new Censo(21, "Maria Trindade", 16, "60679267", "17", "1", 1, true),
+      new Censo(22, "Victoria Garcia", 18, "71386380", "1", "1", 2, false),
+      new Censo(23, "Matias Flores", 21, "5838494", "2", "2", 2, false),
+      new Censo(24, "Victor Libonatti", 55, "10269755", "2", "3", 3, true),
+      new Censo(25, "Gloria Rodriguez", 76, "83042201", "3", "3", 3, true),
+      new Censo(26, "Miriam Gonzales", 82, "64111590", "4", "3", 1, false),
+      new Censo(27, "Daniel Perez", 64, "10690693", "5", "1", 1, true),
+      new Censo(28, "Bruno Valverde", 14, "30608230", "19", "1", 2, true),
+      new Censo(29, "Jose Perez", 51, "35999674", "18", "2", 2, false),
+      new Censo(30, "Miguel Angel Ruso", 11, "32378908", "5", "2", 3, false),
     ];
     this.departamentos = [
       new Departamento(1, "Artigas"),
@@ -72,8 +101,8 @@ class Sistema {
 
   //Modificamos un censo
   modificarCenso(id, censo) {
-    let idEncontrado = this.buscarPosicionEnArray(this.censos, "id", id);
-    this.censos[idEncontrado] = censo;
+    let posicionEncontrada = this.buscarPosicionEnArray(this.censos, "id", id);
+    this.censos[posicionEncontrada] = censo;
   }
 
   //Devuelve un array con los elementos que cumplen con una condición
@@ -159,5 +188,11 @@ class Sistema {
   }
   idAleatorio() {
     return Math.round(Math.random() * (this.censistas.length - 1) + 1);
+  }
+
+  //Elimina un censo
+  eliminarCenso(id) {
+    let PosicionEncontrada = this.buscarPosicionEnArray(this.censos, "id", id);
+    this.censos.splice(PosicionEncontrada, 1);
   }
 }
