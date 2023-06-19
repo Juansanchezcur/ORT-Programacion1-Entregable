@@ -367,7 +367,7 @@ function loginCensista() {
   }
 }
 
-let idCensistas = 11;
+let idCensistas = 4;
 
 function registrarUsuario() {
   //Tomo los datos del HTML
@@ -436,7 +436,7 @@ function registrarUsuario() {
   }
 }
 
-let idCenso = 11;
+let idCenso = 31;
 
 function procesarCensoCensista() {
   //Tomo el id del botón que se utilizó
