@@ -1,9 +1,9 @@
 class Sistema {
   constructor() {
     this.censistas = [
-      new Censista(1, "Carlos Machado", "cmachado", "1234567"),
-      new Censista(2, "Lionel Messi", "lmessi", "1234567"),
-      new Censista(3, "Ema Noir", "enoir", "1234567"),
+      new Censista(1, "Carlos Machado", "cmachado", "Obligatorio1"),
+      new Censista(2, "Lionel Messi", "lmessi", "Obligatorio1"),
+      new Censista(3, "Ema Noir", "enoir", "Obligatorio1"),
     ];
     this.censos = [
       new Censo(1, "Juan Carlos", 45, "46972011", "5", "1", 1, false),
@@ -194,5 +194,93 @@ class Sistema {
   eliminarCenso(id) {
     let PosicionEncontrada = this.buscarPosicionEnArray(this.censos, "id", id);
     this.censos.splice(PosicionEncontrada, 1);
+  }
+
+  validarContrasena(contrasena) {
+    //Creo las variables a usar en la validación final
+    let contrasenaValida = false;
+    let tieneNumero = false;
+    let tieneMinuscula = false;
+    let tieneMayuscula = false;
+    //Primero valido si tiene 5 o más caracteres, si no los tiene ya no tiene sentido seguir mirando lo demás (además lo hago sin iterar nada)
+    if (contrasena.length >= 5) {
+      //Recorro la contraseña, letra por letra
+      for (let i = 0; i < contrasena.length; i++) {
+        let letra = contrasena.substring(i, i);
+        //Busco si tiene una minúscula
+        if (letra === letra.toLowerCase()) {
+          tieneMinuscula = true;
+        }
+        //Busco si tiene una mayúscula
+        if (letra === letra.toUpperCase()) {
+          tieneMayuscula = true;
+        }
+        //Busco si tiene un número
+        if (!isNaN(Number(letra))) {
+          tieneNumero = true;
+        }
+      }
+      //Si tiene un número, una minúscula y una mayúscula, es válida (ya habíamos visto la cantidad de caracteres)
+      if (tieneNumero && tieneMinuscula && tieneMayuscula)
+        contrasenaValida = true;
+    }
+    console.log({ tieneNumero, tieneMinuscula, tieneMayuscula });
+    return contrasenaValida;
+  }
+
+  //Valida CI
+  validarCI(ci) {
+    let valida = false;
+    ci = this.eliminarCaracter(ci, ".");
+    ci = this.eliminarCaracter(ci, "-");
+    if (ci.length === 7) {
+      ci = "0" + ci;
+    }
+
+    let multiplicador = "2987634";
+
+    let digitoVerificar = ci.charAt(ci.length - 1);
+    let acumulador = 0;
+
+    for (let i = 0; i < ci.length - 1; i++) {
+      acumulador += Number(ci.charAt(i)) * Number(multiplicador.charAt(i));
+    }
+    let digitoVerificador = (10 - (acumulador % 10)) % 10;
+
+    if (digitoVerificador === Number(digitoVerificar)) {
+      valida = true;
+    }
+    return valida;
+  }
+
+  //Elimina un caracter de un texto
+  eliminarCaracter(texto, letra) {
+    let textoSustituido = "";
+    for (let i = 0; i < texto.length; i++) {
+      if (texto.charAt(i) !== letra) {
+        textoSustituido += texto.charAt(i);
+      }
+    }
+    return textoSustituido;
+  }
+
+  //Valida que el nombre solo contenga Letras y espacios
+  validarNombre(nombre) {
+    let nombreValido = true;
+    for (let i = 0; i < nombre.length; i++) {
+      let letra = nombre.charCodeAt(i);
+      //65 a 90 Mayusculas
+      //97 a 122 Minusculas
+      //32 espacio
+      if (
+        (letra < 65 && letra !== 32) ||
+        (letra > 90 && letra < 97) ||
+        letra > 122
+      ) {
+        nombreValido = false;
+        break;
+      }
+    }
+    return nombreValido;
   }
 }

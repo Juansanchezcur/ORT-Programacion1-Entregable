@@ -179,37 +179,6 @@ function hacerLogin(usuarioDB) {
   document.querySelector("#txtContrasenaIngreso").value = "";
 }
 
-function validarContrasena(contrasena) {
-  //Creo las variables a usar en la validación final
-  let contrasenaValida = false;
-  let tieneNumero = false;
-  let tieneMinuscula = false;
-  let tieneMayuscula = false;
-  //Primero valido si tiene 5 o más caracteres, si no los tiene ya no tiene sentido seguir mirando lo demás (además lo hago sin iterar nada)
-  if (contrasena.length >= 5) {
-    //Recorro la contraseña, letra por letra
-    for (let i = 0; i < contrasena.length; i++) {
-      let letra = contrasena.substring(i, i);
-      //Busco si tiene una minúscula
-      if (letra === letra.toLowerCase()) {
-        tieneMinuscula = true;
-      }
-      //Busco si tiene una mayúscula
-      if (letra === letra.toUpperCase()) {
-        tieneMayuscula = true;
-      }
-      //Busco si tiene un número
-      if (!isNaN(Number(letra))) {
-        tieneNumero = true;
-      }
-    }
-    //Si tiene un número, una minúscula y una mayúscula, es válida (ya habíamos visto la cantidad de caracteres)
-    if (tieneNumero && tieneMinuscula && tieneMayuscula)
-      contrasenaValida = true;
-  }
-  console.log({ tieneNumero, tieneMinuscula, tieneMayuscula });
-  return contrasenaValida;
-}
 //Muestra un mensaje en un párrafo por su id
 function mostrarMensaje(iDparrafo, texto) {
   document.querySelector(`#${iDparrafo}`).innerHTML = texto;
@@ -224,60 +193,6 @@ function cargarDepartamentos(parrafo) {
       parrafo
     ).innerHTML += `<option value="${departamento.id}">${departamento.nombre}</option>`;
   }
-}
-//Valida CI
-function validarCI(ci) {
-  let valida = false;
-  ci = eliminarCaracter(ci, ".");
-  ci = eliminarCaracter(ci, "-");
-  if (ci.length === 7) {
-    ci = "0" + ci;
-  }
-
-  let multiplicador = "2987634";
-
-  let digitoVerificar = ci.charAt(ci.length - 1);
-  let acumulador = 0;
-
-  for (let i = 0; i < ci.length - 1; i++) {
-    acumulador += Number(ci.charAt(i)) * Number(multiplicador.charAt(i));
-  }
-  let digitoVerificador = (10 - (acumulador % 10)) % 10;
-
-  if (digitoVerificador === Number(digitoVerificar)) {
-    valida = true;
-  }
-  return valida;
-}
-//Elimina un caracter
-function eliminarCaracter(texto, letra) {
-  let textoSustituido = "";
-  for (let i = 0; i < texto.length; i++) {
-    if (texto.charAt(i) !== letra) {
-      textoSustituido += texto.charAt(i);
-    }
-  }
-  return textoSustituido;
-}
-
-//Valida que el nombre solo contenga Letras y espacios
-function validarNombre(nombre) {
-  let nombreValido = true;
-  for (let i = 0; i < nombre.length; i++) {
-    let letra = nombre.charCodeAt(i);
-    //65 a 90 Mayusculas
-    //97 a 122 Minusculas
-    //32 espacio
-    if (
-      (letra < 65 && letra !== 32) ||
-      (letra > 90 && letra < 97) ||
-      letra > 122
-    ) {
-      nombreValido = false;
-      break;
-    }
-  }
-  return nombreValido;
 }
 
 function censoRecuperadoCensista(censo) {
@@ -483,7 +398,7 @@ function registrarUsuario() {
       );
     } else {
       //Reviso que la contraseña sea válida
-      let contrasenaOk = validarContrasena(contrasena);
+      let contrasenaOk = sistema.validarContrasena(contrasena);
       //Si la contraseña es inválida doy mensaje de error
 
       if (contrasenaOk == false) {
@@ -549,7 +464,7 @@ function procesarCensoCensista() {
     );
   } else {
     //Valimos el nombre
-    let nombreOk = validarNombre(nombre);
+    let nombreOk = sistema.validarNombre(nombre);
 
     if (!nombreOk) {
       mostrarMensaje(
@@ -565,7 +480,7 @@ function procesarCensoCensista() {
         );
       } else {
         //Valido la CI
-        let cedulaOk = validarCI(cedula);
+        let cedulaOk = sistema.validarCI(cedula);
         if (!cedulaOk) {
           mostrarMensaje(
             "pMensajeRegistrarCenso",
@@ -644,7 +559,7 @@ function buscarCenso() {
   let cedula = document.querySelector("#txtCedulaBuscador").value;
 
   //Valido la CI
-  let cedulaOk = validarCI(cedula);
+  let cedulaOk = sistema.validarCI(cedula);
   if (!cedulaOk || cedula === "") {
     mostrarMensaje(
       "pMensajeBuscarCenso",
@@ -811,7 +726,7 @@ function buscarCensoInvitado() {
   let cedula = document.querySelector("#txtCedulaBuscadorInvitado").value;
 
   //Valido la CI
-  let cedulaOk = validarCI(cedula);
+  let cedulaOk = sistema.validarCI(cedula);
   if (!cedulaOk || cedula === "") {
     mostrarMensaje(
       "pMensajeBuscarCensoInvitado",
@@ -883,8 +798,8 @@ function procesarCensoInvitado() {
       "Por favor verifique que haya llenado todos los campos y a su vez que la edad y la cédula sean solo números"
     );
   } else {
-    //Valimos el nombre
-    let nombreOk = validarNombre(nombre);
+    //Validamos el nombre
+    let nombreOk = sistema.validarNombre(nombre);
 
     if (!nombreOk) {
       mostrarMensaje(
@@ -900,7 +815,7 @@ function procesarCensoInvitado() {
         );
       } else {
         //Valido la CI
-        let cedulaOk = validarCI(cedula);
+        let cedulaOk = sistema.validarCI(cedula);
         if (!cedulaOk) {
           mostrarMensaje(
             "pMensajeRegistrarCensoInvitado",
@@ -984,7 +899,7 @@ function buscarCensoAEliminar() {
   //Tomo los datos del HTML
   let cedula = document.querySelector("#txtCedulaEliminarCensoInvitado").value;
   //Valido la CI
-  let cedulaOk = validarCI(cedula);
+  let cedulaOk = sistema.validarCI(cedula);
   if (!cedulaOk || cedula === "") {
     mostrarMensaje(
       "pMensajeEliminarCensoInvitado",
