@@ -586,6 +586,7 @@ function procesarCensoCensista() {
               alert("Censo Validado con éxito");
               //Limpiar campos
               resetearCamposCensista();
+              mostrarSeccionesPorBoton("#seccionBuscadorDeCensos");
             }
           }
         }
@@ -630,7 +631,7 @@ function buscarCenso() {
         );
       } else {
         //Valido que el censo esté asignado al censista logeado
-        if (usuarioLogeado.id !== censo.id) {
+        if (usuarioLogeado.id !== censo.idCensista) {
           mostrarMensaje(
             "pMensajeBuscarCenso",
             "Este censo no pertenece a este censista"
