@@ -206,17 +206,17 @@ class Sistema {
     if (contrasena.length >= 5) {
       //Recorro la contraseña, letra por letra
       for (let i = 0; i < contrasena.length; i++) {
-        let letra = contrasena.substring(i, i);
+        let letra = contrasena.charAt(i);
         //Busco si tiene una minúscula
-        if (letra === letra.toLowerCase()) {
-          tieneMinuscula = true;
-        }
-        //Busco si tiene una mayúscula
-        if (letra === letra.toUpperCase()) {
-          tieneMayuscula = true;
-        }
-        //Busco si tiene un número
-        if (!isNaN(Number(letra))) {
+        if (isNaN(Number(letra))) {
+          if (letra === letra.toLowerCase()) {
+            tieneMinuscula = true;
+          }
+          //Busco si tiene una mayúscula
+          if (letra === letra.toUpperCase()) {
+            tieneMayuscula = true;
+          }
+        } else {
           tieneNumero = true;
         }
       }
@@ -224,7 +224,7 @@ class Sistema {
       if (tieneNumero && tieneMinuscula && tieneMayuscula)
         contrasenaValida = true;
     }
-    console.log({ tieneNumero, tieneMinuscula, tieneMayuscula });
+
     return contrasenaValida;
   }
 

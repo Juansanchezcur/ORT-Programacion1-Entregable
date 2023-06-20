@@ -430,10 +430,8 @@ function registrarUsuario() {
         //Sumo 1 al ID de censistas
         idCensistas++;
 
-        mostrarMensaje(
-          "pMensajeCrearCuentaCensista",
-          "Censista registrado con éxito"
-        );
+        alert("Censista registrado con éxito");
+
         //Reseteo los inputs
         document.querySelector("#txtNombreCrearCuenta").value = "";
         document.querySelector("#txtUsuarioRegistroCensista").value = "";
