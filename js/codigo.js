@@ -741,17 +741,19 @@ function informesDepartamentos() {
     //Cuento mayores
     let mayoresDeEdad = sistema.contarMayoresPorDepartamento(departamento);
     //Busco el total de censos
-    let totalCensos = sistema.buscarElementosPorCondicion(
+    let totalCensos = sistema.buscarElementosPorDobleCondicion(
       sistema.censos,
       "departamento",
-      departamento
+      departamento,
+      "censado",
+      true
     ).length;
     let menoresDeEdad = sistema.contarMenoresPorDepartamento(departamento);
     let porcentajeMayores = 0;
     let porcentajeMenores = 0;
     if (totalCensos > 0) {
-      porcentajeMayores = (mayoresDeEdad / totalCensos) * 100;
-      porcentajeMenores = (menoresDeEdad / totalCensos) * 100;
+      porcentajeMayores = Math.round((mayoresDeEdad / totalCensos) * 100);
+      porcentajeMenores = Math.round((menoresDeEdad / totalCensos) * 100);
     }
 
     mostrarMensaje(
