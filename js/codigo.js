@@ -586,7 +586,7 @@ function procesarCensoCensista() {
               alert("Censo Validado con éxito");
               //Limpiar campos
               resetearCamposCensista();
-              mostrarSeccionesPorBoton("#seccionBuscadorDeCensos");
+              mostrarSeccionesPorBoton(["#seccionBuscadorDeCensos"]);
             }
           }
         }
