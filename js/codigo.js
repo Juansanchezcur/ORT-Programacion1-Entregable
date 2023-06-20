@@ -133,6 +133,10 @@ function mostrarSeccionDesdeNav() {
   if (idBtn === "btnSeccionReasignacionCensista") {
     cargarSelectsReasignacion();
   }
+  if (idBtn === "btnSeccionBuscadorDeCensos") {
+    document.querySelector("#txtCedulaBuscador").value = "";
+    document.querySelector("#pMensajeBuscarCenso").value = "";
+  }
   if (idBtn === "btnSeccionEstadisticaCensista") {
     cargarInformesCensos();
   }
@@ -141,6 +145,7 @@ function mostrarSeccionDesdeNav() {
   }
   if (idBtn === "btnBuscarCensoInvitado") {
     document.querySelector("#txtCedulaBuscadorInvitado").value = "";
+    document.querySelector("#pMensajeBuscarCensoInvitado").value = "";
   }
   if (idBtn === "seccionEliminarCensoInvitado") {
     document.querySelector("#txtCedulaEliminarCensoInvitado").value = "";
