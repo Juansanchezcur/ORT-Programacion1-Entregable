@@ -142,6 +142,12 @@ function mostrarSeccionDesdeNav() {
   if (idBtn === "btnBuscarCensoInvitado") {
     document.querySelector("#txtCedulaBuscadorInvitado").value = "";
   }
+  if (idBtn === "seccionEliminarCensoInvitado") {
+    document.querySelector("#txtCedulaEliminarCensoInvitado").value = "";
+    document
+      .querySelector("#btnEliminarCensoInvitado")
+      .setAttribute("disabled", "disabled");
+  }
 }
 
 //Muestra las secciones que le pasamos por parametros (en una array)
