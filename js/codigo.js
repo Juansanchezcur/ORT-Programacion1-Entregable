@@ -723,8 +723,9 @@ function cargarInformesCensos() {
   mostrarMensaje(
     "pInformePendientesDeValidar",
     `Porcentaje de censados sin validar : ${
-      ((censosTotal.length - censadosValidados.length) / censosTotal.length) *
-      100
+      Math.round(
+        (censosTotal.length - censadosValidados.length) / censosTotal.length
+      ) * 100
     }%`
   );
 }
