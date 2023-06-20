@@ -453,6 +453,7 @@ function volverAlLobby() {
   document.querySelector("#txtNombreCrearCuenta").value = "";
   document.querySelector("#txtUsuarioRegistroCensista").value = "";
   document.querySelector("#txtContrasenaRegistroCensista").value = "";
+  document.querySelector("#pMensajeCrearCuentaCensista").value = "";
 }
 
 //Numerador de censos
