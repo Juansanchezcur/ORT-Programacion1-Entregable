@@ -5,10 +5,12 @@ function inicio() {
 
   //Al cargar la página por primera vez el botón validar censos no se ve
   document.querySelector("#btnValidarCenso").style.display = "none";
+
   //Cargo los departamentos en los selects
   cargarDepartamentos("#slcDepartamentoRegistrarCenso");
   cargarDepartamentos("#slcDepartamentoRegistrarCensoInvitado");
   cargarDepartamentos("#slcDepartamentoInforme");
+
   //oculto el nav, los botones y las secciones al cargar la página
   ocultarSecciones();
   ocultarBotones();
@@ -372,6 +374,7 @@ function loginCensista() {
   }
 }
 
+//Numerador de los censistas
 let idCensistas = 4;
 
 function registrarUsuario() {
@@ -441,6 +444,7 @@ function registrarUsuario() {
   }
 }
 
+//Vuelve al lobby desde las secciones de login y creacion de usuario
 function volverAlLobby() {
   mostrarSeccionesPorBoton(["#seccionLobby"]);
   //Reseteo los imputs
@@ -451,8 +455,10 @@ function volverAlLobby() {
   document.querySelector("#txtContrasenaRegistroCensista").value = "";
 }
 
+//Numerador de censos
 let idCenso = 31;
 
+//Procesa censos desde la pantalla de censista
 function procesarCensoCensista() {
   //Tomo el id del botón que se utilizó
   let idBtn = this.getAttribute("id");
@@ -570,6 +576,7 @@ function procesarCensoCensista() {
   resetearCamposCensista();
 }
 
+//Busca un censo y muestra sus datos
 function buscarCenso() {
   let cedula = document.querySelector("#txtCedulaBuscador").value;
 
@@ -649,6 +656,8 @@ function reasignarCenso() {
     cargarSelectsReasignacion();
   }
 }
+
+//Carga la pantalla de informes de censos
 function cargarInformesCensos() {
   //1- Muestro en el párrafo los censados que están validados
   let censadosValidados = sistema.buscarElementosPorCondicion(
@@ -701,6 +710,7 @@ function cargarInformesCensos() {
   );
 }
 
+//Carga la seccion de informes por departamento de la pantalla de informes de censista
 function informesDepartamentos() {
   let departamento = document.querySelector("#slcDepartamentoInforme").value;
   if (departamento === "-1") {
@@ -735,6 +745,8 @@ function informesDepartamentos() {
 }
 
 //INVITADO
+
+//Variable utilizada para controlar si se recuperó o no, un censo ya existente o si es uno nuevo
 let censoRecuperado = false;
 
 function buscarCensoInvitado() {
@@ -786,6 +798,7 @@ function buscarCensoInvitado() {
   }
 }
 
+//Procesa censos desde las pantallas del invitado
 function procesarCensoInvitado() {
   //Tomo los datos del HTML
   let nombre = document.querySelector("#txtNombreRegistrarCensoInvitado").value;
@@ -908,8 +921,10 @@ function procesarCensoInvitado() {
     .removeAttribute("disabled");
 }
 
+//Variable utilizada para controlar si se encontró un censo para eliminar y pasar de una función (la que recupera) a otra (la que borra)
 let censoAEliminar = null;
 
+//Recupera un censo para ser borrado en la función anterior
 function buscarCensoAEliminar() {
   //Tomo los datos del HTML
   let cedula = document.querySelector("#txtCedulaEliminarCensoInvitado").value;
@@ -958,6 +973,8 @@ function buscarCensoAEliminar() {
     }
   }
 }
+
+//Elimina un censo recuperado en la función anterior
 function eliminarCensoInvitado() {
   //Pido una confirmación para eliminar
   let confirmacion = confirm("Eliminar datos?");
@@ -974,6 +991,7 @@ function eliminarCensoInvitado() {
   }
 }
 
+//Carga la tabla con la información estadística para el invitado
 function cargarTablaInvitado() {
   //Limpio los datos
   document.querySelector("#tblInformeCensadosInvitado").innerHTML = "";
