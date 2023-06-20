@@ -458,6 +458,8 @@ let idCenso = 31;
 
 //Procesa censos desde la pantalla de censista
 function procesarCensoCensista() {
+  //Reinicio el párrafo por si lo usé anteriormente
+  document.querySelector("#pMensajeRegistrarCenso").value = "";
   //Tomo el id del botón que se utilizó
   let idBtn = this.getAttribute("id");
   //Tomo los datos del HTML
