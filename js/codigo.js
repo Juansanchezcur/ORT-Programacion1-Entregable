@@ -257,6 +257,7 @@ function resetearCamposCensista() {
   document.querySelector("#txtCedulaRegistrarCenso").value = "";
   document.querySelector("#slcDepartamentoRegistrarCenso").value = -1;
   document.querySelector("#slcOcupacionRegistrarCenso").value = -1;
+  document.querySelector("#pMensajeRegistrarCenso").value = "";
 }
 
 function resetearCamposInvitado(borroCI) {
@@ -267,6 +268,7 @@ function resetearCamposInvitado(borroCI) {
   }
   document.querySelector("#slcDepartamentoRegistrarCensoInvitado").value = -1;
   document.querySelector("#slcOcupacionRegistrarCensoInvitado").value = -1;
+  document.querySelector("#pMensajeRegistrarCensoInvitado").value = "";
 }
 function formatearSeccionIngresoCenso() {
   //Reseteo los campos
