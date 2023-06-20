@@ -722,11 +722,10 @@ function cargarInformesCensos() {
   let censosTotal = sistema.obtenerArrayCensos();
   mostrarMensaje(
     "pInformePendientesDeValidar",
-    `Porcentaje de censados sin validar : ${
-      Math.round(
-        (censosTotal.length - censadosValidados.length) / censosTotal.length
-      ) * 100
-    }%`
+    `Porcentaje de censados sin validar : ${Math.round(
+      ((censosTotal.length - censadosValidados.length) / censosTotal.length) *
+        100
+    )}%`
   );
 }
 
