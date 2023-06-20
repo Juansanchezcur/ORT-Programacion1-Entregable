@@ -51,6 +51,11 @@ function inicio() {
     .querySelector("#btnRegistrarCensista")
     .addEventListener("click", registrarUsuario);
 
+  //Volver al lobby
+  document
+    .querySelector("#btnVolverAlLobby")
+    .addEventListener("click", volverAlLobby);
+
   //Registrar Censo
   document
     .querySelector("#btnRegistrarCenso")
@@ -434,6 +439,16 @@ function registrarUsuario() {
       }
     }
   }
+}
+
+function volverAlLobby() {
+  mostrarSeccionesPorBoton(["#seccionLobby"]);
+  //Reseteo los imputs
+  document.querySelector("#txtUsuarioIngreso").value = "";
+  document.querySelector("#txtContrasenaIngreso").value = "";
+  document.querySelector("#txtNombreCrearCuenta").value = "";
+  document.querySelector("#txtUsuarioRegistroCensista").value = "";
+  document.querySelector("#txtContrasenaRegistroCensista").value = "";
 }
 
 let idCenso = 31;
