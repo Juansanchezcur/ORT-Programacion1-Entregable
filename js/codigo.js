@@ -139,6 +139,9 @@ function mostrarSeccionDesdeNav() {
   if (idBtn === "btnSeccionEstadisticaInvitado") {
     cargarTablaInvitado();
   }
+  if (idBtn === "btnBuscarCensoInvitado") {
+    document.querySelector("#txtCedulaBuscadorInvitado").value = "";
+  }
 }
 
 //Muestra las secciones que le pasamos por parametros (en una array)
