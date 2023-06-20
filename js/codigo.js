@@ -143,7 +143,7 @@ function mostrarSeccionDesdeNav() {
   if (idBtn === "btnSeccionEstadisticaInvitado") {
     cargarTablaInvitado();
   }
-  if (idBtn === "btnBuscarCensoInvitado") {
+  if (idBtn === "btnSeccionBuscadorDeCensosInvitado") {
     document.querySelector("#txtCedulaBuscadorInvitado").value = "";
     document.querySelector("#pMensajeBuscarCensoInvitado").value = "";
   }
