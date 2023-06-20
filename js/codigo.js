@@ -928,18 +928,17 @@ function procesarCensoInvitado() {
               sistema.modificarCenso(elementoAModificar.id, censo);
               alert("Censo Registrado con éxito");
             }
+            //Limpiar campos
+            resetearCamposInvitado(true);
+            //Desbloqueo el campo Cédula
+            document
+              .querySelector("#txtCedulaRegistrarCensoInvitado")
+              .removeAttribute("disabled");
           }
         }
       }
     }
   }
-
-  //Limpiar campos
-  resetearCamposInvitado(true);
-  //Desbloqueo el campo Cédula
-  document
-    .querySelector("#txtCedulaRegistrarCensoInvitado")
-    .removeAttribute("disabled");
 }
 
 //Variable utilizada para controlar si se encontró un censo para eliminar y pasar de una función (la que recupera) a otra (la que borra)
