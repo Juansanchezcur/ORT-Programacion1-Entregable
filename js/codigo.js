@@ -542,7 +542,8 @@ function procesarCensoCensista() {
               alert("Censo registrado con Éxito!");
               idCenso++;
 
-              mostrarMensaje("pMensajeRegistrarCenso", "");
+              //Limpiar campos
+              resetearCamposCensista();
             }
             //Si lo hago desde el botón de modificar censo...
             else if (idBtn === "btnValidarCenso") {
@@ -566,14 +567,14 @@ function procesarCensoCensista() {
               //modifico el censo y muestro un mensaje exitoso
               sistema.modificarCenso(elementoAModificar.id, censo);
               alert("Censo Validado con éxito");
+              //Limpiar campos
+              resetearCamposCensista();
             }
           }
         }
       }
     }
   }
-  //Limpiar campos
-  resetearCamposCensista();
 }
 
 //Busca un censo y muestra sus datos
