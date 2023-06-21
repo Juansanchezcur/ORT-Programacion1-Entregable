@@ -135,7 +135,7 @@ function mostrarSeccionDesdeNav() {
   }
   if (idBtn === "btnSeccionBuscadorDeCensos") {
     document.querySelector("#txtCedulaBuscador").value = "";
-    document.querySelector("#pMensajeBuscarCenso").value = "";
+    document.querySelector("#pMensajeBuscarCenso").innerHTML = "";
   }
   if (idBtn === "btnSeccionEstadisticaCensista") {
     cargarInformesCensos();
@@ -145,13 +145,12 @@ function mostrarSeccionDesdeNav() {
   }
   if (idBtn === "btnSeccionBuscadorDeCensosInvitado") {
     document.querySelector("#txtCedulaBuscadorInvitado").value = "";
-    document.querySelector("#pMensajeBuscarCensoInvitado").value = "";
+    document.querySelector("#pMensajeBuscarCensoInvitado").innerHTML = "";
   }
-  if (idBtn === "seccionEliminarCensoInvitado") {
+  if (idBtn === "btnSeccionEliminarCensoInvitado") {
     document.querySelector("#txtCedulaEliminarCensoInvitado").value = "";
-    document
-      .querySelector("#btnEliminarCensoInvitado")
-      .setAttribute("disabled", "disabled");
+    document.querySelector("#btnEliminarCensoInvitado").style.display = "none";
+    document.querySelector("#pMensajeEliminarCensoInvitado").innerHTML = "";
   }
 }
 
@@ -1002,10 +1001,10 @@ function eliminarCensoInvitado() {
   //Si confirma: elimino el censo, muestro un mensaje y reinicio la variable, el input y el botón
   if (confirmacion) {
     sistema.eliminarCenso(censoAEliminar.id);
-    mostrarMensaje(
-      "pMensajeEliminarCensoInvitado",
+    alert(
       `Se han eliminado correctamente los datos de la CI: ${censoAEliminar.cedula}`
     );
+    mostrarMensaje("pMensajeEliminarCensoInvitado", "");
     document.querySelector("#btnEliminarCensoInvitado").style.display = "none";
     censoAEliminar = null;
     document.querySelector("#txtCedulaEliminarCensoInvitado").value = "";
