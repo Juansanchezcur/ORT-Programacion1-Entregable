@@ -270,7 +270,7 @@ function resetearCamposCensista() {
   document.querySelector("#txtCedulaRegistrarCenso").value = "";
   document.querySelector("#slcDepartamentoRegistrarCenso").value = -1;
   document.querySelector("#slcOcupacionRegistrarCenso").value = -1;
-  document.querySelector("#pMensajeRegistrarCenso").value = "";
+  document.querySelector("#pMensajeRegistrarCenso").innerHTML = "";
 }
 
 function resetearCamposInvitado(borroCI) {
@@ -281,7 +281,7 @@ function resetearCamposInvitado(borroCI) {
   }
   document.querySelector("#slcDepartamentoRegistrarCensoInvitado").value = -1;
   document.querySelector("#slcOcupacionRegistrarCensoInvitado").value = -1;
-  document.querySelector("#pMensajeRegistrarCensoInvitado").value = "";
+  document.querySelector("#pMensajeRegistrarCensoInvitado").innerHTML = "";
 }
 function formatearSeccionIngresoCenso() {
   //Reseteo los campos
@@ -466,7 +466,8 @@ function volverAlLobby() {
   document.querySelector("#txtNombreCrearCuenta").value = "";
   document.querySelector("#txtUsuarioRegistroCensista").value = "";
   document.querySelector("#txtContrasenaRegistroCensista").value = "";
-  document.querySelector("#pMensajeCrearCuentaCensista").value = "";
+  document.querySelector("#pMensajeCrearCuentaCensista").innerHTML = "";
+  document.querySelector("#pMensajeLoginCensista").innerHTML = "";
 }
 
 //Numerador de censos
@@ -475,7 +476,7 @@ let idCenso = 31;
 //Procesa censos desde la pantalla de censista
 function procesarCensoCensista() {
   //Reinicio el párrafo por si lo usé anteriormente
-  document.querySelector("#pMensajeRegistrarCenso").value = "";
+  document.querySelector("#pMensajeRegistrarCenso").innerHTML = "";
   //Tomo el id del botón que se utilizó
   let idBtn = this.getAttribute("id");
   //Tomo los datos del HTML
