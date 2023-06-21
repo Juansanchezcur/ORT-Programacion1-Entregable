@@ -428,7 +428,7 @@ function registrarUsuario() {
       if (contrasenaOk == false) {
         mostrarMensaje(
           "pMensajeCrearCuentaCensista",
-          "Contraseña incorrecta, verifica que contenga al menos una mayúscula, una minúscula y un número"
+          "Por favor introduzca una contraseña de al menos 5 caracteres, con al menos una mayúscula, una minúscula y un número"
         );
       } else {
         //Si la contraseña es válida
@@ -585,6 +585,7 @@ function procesarCensoCensista() {
               sistema.modificarCenso(elementoAModificar.id, censo);
               alert("Censo Validado con éxito");
               //Limpiar campos
+              document.querySelector("#txtCedulaBuscador");
               resetearCamposCensista();
               mostrarSeccionesPorBoton(["#seccionBuscadorDeCensos"]);
             }
