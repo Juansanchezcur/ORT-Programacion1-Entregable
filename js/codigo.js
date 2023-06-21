@@ -670,7 +670,7 @@ function reasignarCenso() {
     //Lo sustituyo en el array
     sistema.modificarCenso(censoACambiar.id, censoACambiar);
     //Muestro un mensaje satisfactorio
-    mostrarMensaje("pMensajeReasignarCenso", "Censo reasignado perfectamente");
+    alert("Censo reasignado correctamente");
 
     //Resteo y vuelvo a cargar los selects
     cargarSelectsReasignacion();
